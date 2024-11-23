@@ -1,11 +1,5 @@
 FROM cloudron/base:4.2.0@sha256:46da2fffb36353ef714f97ae8e962bd2c212ca091108d768ba473078319a47f4
 
-# Install Node.js based on the app's requirements
-ARG NODE_VERSION=20.11.1
-RUN mkdir -p /usr/local/node-$NODE_VERSION && \
-    curl -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | tar zxf - --strip-components 1 -C /usr/local/node-$NODE_VERSION
-ENV PATH=/usr/local/node-$NODE_VERSION/bin:$PATH
-
 # Install MeiliSearch
 RUN curl -L https://install.meilisearch.com | sh && \
     mv meilisearch /usr/local/bin/ && \
