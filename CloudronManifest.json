@@ -1,0 +1,20 @@
+{
+  "id": "com.librechat.cloudronapp",
+  "version": "0.7.5",
+  "title": "LibreChat",
+  "author": "Danny Avila <info@librechat.ai>",
+  "description": "file://DESCRIPTION.md",
+  "tagline": "Enhanced ChatGPT-compatible interface with AI model switching",
+  "website": "https://github.com/danny-avila/LibreChat",
+  "healthCheckPath": "/api/health",
+  "httpPort": 3080,
+  "addons": {
+    "mongodb": {},
+    "postgresql": {},
+    "localstorage": {}
+  },
+  "manifestVersion": 2,
+  "memoryLimit": 2147483648,
+  "minBoxVersion": "7.2.0",
+  "tags": ["ai", "chat", "gpt"]
+}
