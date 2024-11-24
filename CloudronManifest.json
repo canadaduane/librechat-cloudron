@@ -11,7 +11,10 @@
   "addons": {
     "mongodb": {},
     "postgresql": {},
-    "localstorage": {}
+    "localstorage": {},
+    "oidc": {
+      "loginRedirectUri": "/oauth/openid/callback"
+    }
   },
   "manifestVersion": 2,
   "memoryLimit": 2147483648,

@@ -2,6 +2,14 @@
 
 set -eu
 
+# OpenID Connect Settings
+export OPENID_ISSUER="${CLOUDRON_OIDC_ISSUER}/.well-known/openid-configuration"
+export OPENID_CLIENT_ID=${CLOUDRON_OIDC_CLIENT_ID}
+export OPENID_CLIENT_SECRET=${CLOUDRON_OIDC_CLIENT_SECRET}
+export OPENID_SCOPE="openid profile email"
+export OPENID_CALLBACK_URL="/oauth/openid/callback"
+export OPENID_BUTTON_LABEL="Login with Cloudron"
+
 # Create persistent data directories
 mkdir -p /app/data/public
 mkdir -p /app/data/logs
@@ -18,18 +26,22 @@ if [[ ! -f /app/data/secrets.env ]]; then
     echo "Generating secrets for first run..."
 
     # Generate JWT secrets
-    JWT_SECRET=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c50)
-    JWT_REFRESH_SECRET=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c50)
+    JWT_SECRET=$(hexdump -n 32 -v -e '/1 "%02x"' /dev/urandom)
+    JWT_REFRESH_SECRET=$(hexdump -n 32 -v -e '/1 "%02x"' /dev/urandom)
 
     # Generate encryption keys for credentials
-    CREDS_KEY=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c64)
-    CREDS_IV=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c32)
+    CREDS_KEY=$(hexdump -n 32 -v -e '/1 "%02x"' /dev/urandom)
+    CREDS_IV=$(hexdump -n 16 -v -e '/1 "%02x"' /dev/urandom)
+
+    # Generate MeiliSearch master key
+    MEILI_MASTER_KEY=$(hexdump -n 32 -v -e '/1 "%02x"' /dev/urandom)
 
     cat > /app/data/secrets.env <<EOL
 export JWT_SECRET=${JWT_SECRET}
 export JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
 export CREDS_KEY=${CREDS_KEY}
 export CREDS_IV=${CREDS_IV}
+export MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
 EOL
 fi
 if [[ ! -f /app/data/.env ]]; then cp /app/code/.env /app/data/.env; fi
@@ -52,7 +64,6 @@ export DATABASE_URL="postgresql://${CLOUDRON_POSTGRESQL_USERNAME}:${CLOUDRON_POS
 
 # MeiliSearch configuration
 export MEILI_HOST="http://localhost:7700"
-export MEILI_MASTER_KEY="${JWT_SECRET}"
 export MEILI_NO_ANALYTICS=true
 
 # File paths
