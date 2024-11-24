@@ -2,6 +2,15 @@
 
 set -eu
 
+# Email Configuration
+export EMAIL_HOST="${CLOUDRON_MAIL_SMTP_SERVER}"
+export EMAIL_PORT="${CLOUDRON_MAIL_SMTP_PORT}"
+export EMAIL_USERNAME="${CLOUDRON_MAIL_SMTP_USERNAME}"
+export EMAIL_PASSWORD="${CLOUDRON_MAIL_SMTP_PASSWORD}"
+export EMAIL_FROM="${CLOUDRON_MAIL_FROM}"
+export EMAIL_FROM_NAME="LibreChat"
+export EMAIL_ENCRYPTION="TLS"
+
 # OpenID Connect Settings
 export OPENID_ISSUER="${CLOUDRON_OIDC_ISSUER}/.well-known/openid-configuration"
 export OPENID_CLIENT_ID=${CLOUDRON_OIDC_CLIENT_ID}
@@ -15,11 +24,8 @@ mkdir -p /app/data/public
 mkdir -p /app/data/logs
 mkdir -p /app/data/uploads/temp
 mkdir -p /app/data/config
-mkdir -p /app/data/images
 mkdir -p /app/data/meili_data
 
-# Create temporary directories
-mkdir -p /run/temp
 
 # If first run, generate secrets
 if [[ ! -f /app/data/secrets.env ]]; then
@@ -44,11 +50,12 @@ export CREDS_IV=${CREDS_IV}
 export MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
 EOL
 fi
-if [[ ! -f /app/data/.env ]]; then cp /app/code/.env /app/data/.env; fi
 source /app/data/secrets.env
-source /app/data/.env
 
-if [[ ! -f /app/data/librechat.yaml ]]; then cp /app/code/librechat.example.yaml /app/data/librechat.yaml; fi
+# If first run, generate config
+if [[ ! -f /app/data/.env ]]; then cp /app/code/.env /app/data/.env; fi
+source /app/data/.env
+if [[ ! -f /app/data/librechat.yaml ]]; then touch /app/data/librechat.yaml; fi
 
 
 # Setup environment variables
@@ -66,11 +73,6 @@ export DATABASE_URL="postgresql://${CLOUDRON_POSTGRESQL_USERNAME}:${CLOUDRON_POS
 export MEILI_HOST="http://localhost:7700"
 export MEILI_NO_ANALYTICS=true
 
-# File paths
-export IMAGES_PATH="/app/data/images"
-export LOGS_PATH="/app/data/logs"
-export UPLOADS_PATH="/app/data/uploads"
-export TEMP_PATH="/run/temp"
 
 # Change ownership of data directories
 chown -R cloudron:cloudron /app/data

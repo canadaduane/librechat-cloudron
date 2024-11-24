@@ -6,6 +6,7 @@
   "description": "file://DESCRIPTION.md",
   "tagline": "Enhanced ChatGPT-compatible interface with AI model switching",
   "website": "https://github.com/danny-avila/LibreChat",
+  "documentationUrl": "https://www.librechat.ai/docs",
   "healthCheckPath": "/api/health",
   "httpPort": 3080,
   "addons": {
@@ -14,10 +15,13 @@
     "localstorage": {},
     "oidc": {
       "loginRedirectUri": "/oauth/openid/callback"
-    }
+    },
+    "sendmail": {}
   },
   "manifestVersion": 2,
-  "memoryLimit": 2147483648,
+  "memoryLimit": 1073741824,
   "minBoxVersion": "7.2.0",
-  "tags": ["ai", "chat", "gpt"]
+  "tags": ["ai", "chat", "gpt"],
+  "icon": "logo.png",
+  "postInstallMessage": "To complete the installation, provide you API keys in the .env file. Check also librechat.yaml - https://www.librechat.ai/docs/configuration/librechat_yaml"
 }
