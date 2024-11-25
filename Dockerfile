@@ -42,8 +42,10 @@ RUN chown -R cloudron:cloudron /app/code && \
 RUN rm -rf /app/code/client/dist/public && \
     rm -rf /app/code/api/logs && \
     rm -rf /app/code/uploads && \
+    rm -rf /app/code/data && \
     ln -s /app/data/public /app/code/client/dist/public && \
     ln -s /app/data/logs /app/code/api/logs && \
+    ln -s /app/data/data /app/code/data && \
     ln -s /app/data/uploads /app/code/uploads && \
     ln -s /app/data/librechat.yaml /app/code/librechat.yaml && \
     chown -R cloudron:cloudron /app/code

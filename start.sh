@@ -24,6 +24,7 @@ mkdir -p /app/data/public
 mkdir -p /app/data/logs
 mkdir -p /app/data/uploads/temp
 mkdir -p /app/data/config
+mkdir -p /app/data/data
 mkdir -p /app/data/meili_data
 
 
@@ -70,6 +71,7 @@ export MONGO_URI="mongodb://${CLOUDRON_MONGODB_USERNAME}:${CLOUDRON_MONGODB_PASS
 export DATABASE_URL="postgresql://${CLOUDRON_POSTGRESQL_USERNAME}:${CLOUDRON_POSTGRESQL_PASSWORD}@${CLOUDRON_POSTGRESQL_HOST}:${CLOUDRON_POSTGRESQL_PORT}/${CLOUDRON_POSTGRESQL_DATABASE}"
 
 # MeiliSearch configuration
+export SEARCH=true
 export MEILI_HOST="http://localhost:7700"
 export MEILI_NO_ANALYTICS=true
 
