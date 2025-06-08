@@ -20,7 +20,7 @@ ENV NPM_CONFIG_CACHE=/run/npm-cache
 ENV NPM_CONFIG_USERCONFIG=/run/npm-config/npmrc
 
 # Install LibreChat
-ARG LIBRECHAT_VERSION=v0.7.5
+ARG LIBRECHAT_VERSION=v0.7.8
 RUN curl -L "https://github.com/danny-avila/LibreChat/archive/${LIBRECHAT_VERSION}.tar.gz" | tar -xz --strip-components 1 -C /app/code
 
 

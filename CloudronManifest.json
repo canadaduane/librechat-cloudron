@@ -1,13 +1,13 @@
 {
   "id": "com.librechat.cloudronapp",
-  "version": "0.7.5",
+  "version": "0.7.8",
   "title": "LibreChat",
   "author": "Danny Avila <info@librechat.ai>",
   "description": "file://DESCRIPTION.md",
   "tagline": "Enhanced ChatGPT-compatible interface with AI model switching",
   "website": "https://github.com/danny-avila/LibreChat",
   "documentationUrl": "https://www.librechat.ai/docs",
-  "healthCheckPath": "/api/health",
+  "healthCheckPath": "/health",
   "httpPort": 3080,
   "addons": {
     "mongodb": {},
