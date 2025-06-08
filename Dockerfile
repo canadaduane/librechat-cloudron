@@ -39,11 +39,11 @@ RUN chown -R cloudron:cloudron /app/code && \
     npm cache clean --force'
 
 # Setup symlinks for persistent and temporary data
-RUN rm -rf /app/code/client/dist/public && \
+RUN rm -rf /app/code/client/public && \
     rm -rf /app/code/api/logs && \
     rm -rf /app/code/uploads && \
     rm -rf /app/code/data && \
-    ln -s /app/data/public /app/code/client/dist/public && \
+    ln -s /app/data/public /app/code/client/public && \
     ln -s /app/data/logs /app/code/api/logs && \
     ln -s /app/data/data /app/code/data && \
     ln -s /app/data/uploads /app/code/uploads && \
