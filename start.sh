@@ -15,6 +15,7 @@ export EMAIL_ENCRYPTION="TLS"
 export OPENID_ISSUER="${CLOUDRON_OIDC_ISSUER}/.well-known/openid-configuration"
 export OPENID_CLIENT_ID=${CLOUDRON_OIDC_CLIENT_ID}
 export OPENID_CLIENT_SECRET=${CLOUDRON_OIDC_CLIENT_SECRET}
+export OPENID_SESSION_SECRET=$(hexdump -n 32 -v -e '/1 "%02x"' /dev/urandom)
 export OPENID_SCOPE="openid profile email"
 export OPENID_CALLBACK_URL="/oauth/openid/callback"
 export OPENID_BUTTON_LABEL="Login with Cloudron"
